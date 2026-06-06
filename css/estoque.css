@@ -1,0 +1,420 @@
+/* ============================================
+   ESTOQUE.CSS
+   
+   Estilos específicos da seção:
+   - Controle de Estoque (Porcelanatos)
+   ============================================ */
+
+/* ============================================
+   TABELA DE ESTOQUE CUSTOMIZADA
+   ============================================ */
+
+#tabelaEstoque {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#tabelaEstoque thead {
+    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+    color: var(--color-white);
+}
+
+#tabelaEstoque thead th {
+    padding: var(--spacing-md);
+    text-align: left;
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#tabelaEstoque tbody tr {
+    border-bottom: 1px solid var(--color-light);
+    transition: var(--transition);
+}
+
+#tabelaEstoque tbody tr:hover {
+    background: var(--bg-secondary);
+}
+
+#tabelaEstoque tbody td {
+    padding: var(--spacing-md);
+    font-size: var(--font-size-md);
+}
+
+/* ============================================
+   COLUNAS ESPECÍFICAS
+   ============================================ */
+
+/* Código */
+.col-codigo {
+    font-family: 'Courier New', monospace;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    letter-spacing: 1px;
+}
+
+/* Nome do produto */
+.col-nome {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-dark);
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Quantidade */
+.col-quantidade {
+    text-align: center;
+    font-weight: var(--font-weight-bold);
+    padding: var(--spacing-md);
+}
+
+.quantidade-baixo {
+    color: var(--color-danger);
+    background: rgba(231, 76, 60, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.quantidade-meio {
+    color: var(--color-warning);
+    background: rgba(241, 196, 15, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.quantidade-alto {
+    color: var(--color-secondary);
+    background: rgba(46, 204, 113, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* Valores */
+.col-valor {
+    text-align: right;
+    font-weight: var(--font-weight-medium);
+    font-variant-numeric: tabular-nums;
+}
+
+.valor-compra {
+    color: #e67e22;
+}
+
+.valor-venda {
+    color: var(--color-secondary);
+}
+
+.valor-total {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Margem de lucro */
+.col-margem {
+    text-align: center;
+    font-weight: var(--font-weight-bold);
+}
+
+.margem-high {
+    color: var(--color-secondary);
+    background: rgba(46, 204, 113, 0.1);
+    padding: 4px 12px;
+    border-radius: var(--border-radius);
+}
+
+.margem-medium {
+    color: #f39c12;
+    background: rgba(241, 196, 15, 0.1);
+    padding: 4px 12px;
+    border-radius: var(--border-radius);
+}
+
+.margem-low {
+    color: var(--color-danger);
+    background: rgba(231, 76, 60, 0.1);
+    padding: 4px 12px;
+    border-radius: var(--border-radius);
+}
+
+/* ============================================
+   RESUMO DO ESTOQUE
+   ============================================ */
+
+.resumo-estoque {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.card-resumo-estoque {
+    background: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    border-left: 5px solid;
+    transition: var(--transition);
+}
+
+.card-resumo-estoque:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+}
+
+.card-resumo-estoque h4 {
+    font-size: var(--font-size-md);
+    color: var(--color-gray);
+    margin-bottom: var(--spacing-md);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card-resumo-estoque .valor {
+    font-size: 28px;
+    font-weight: var(--font-weight-bold);
+}
+
+.card-resumo-estoque.total-produtos {
+    border-left-color: var(--color-primary);
+}
+
+.card-resumo-estoque.total-produtos .valor {
+    color: var(--color-primary);
+}
+
+.card-resumo-estoque.valor-total {
+    border-left-color: var(--color-secondary);
+}
+
+.card-resumo-estoque.valor-total .valor {
+    color: var(--color-secondary);
+}
+
+.card-resumo-estoque.margem-media {
+    border-left-color: #f39c12;
+}
+
+.card-resumo-estoque.margem-media .valor {
+    color: #f39c12;
+}
+
+/* ============================================
+   BADGES E INDICADORES
+   ============================================ */
+
+.badge-status {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 20px;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-em-estoque {
+    background: rgba(46, 204, 113, 0.2);
+    color: var(--color-secondary);
+}
+
+.badge-baixo {
+    background: rgba(231, 76, 60, 0.2);
+    color: var(--color-danger);
+}
+
+.badge-fora-estoque {
+    background: rgba(149, 165, 166, 0.2);
+    color: var(--color-gray);
+}
+
+/* ============================================
+   INDICADOR DE ALERTA
+   ============================================ */
+
+.alerta-estoque {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: rgba(241, 196, 15, 0.1);
+    border-left: 4px solid #f39c12;
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-lg);
+}
+
+.alerta-estoque i {
+    color: #f39c12;
+    font-size: 20px;
+}
+
+.alerta-estoque-text {
+    flex: 1;
+}
+
+.alerta-estoque-text h5 {
+    font-size: var(--font-size-md);
+    color: #f39c12;
+    margin-bottom: 4px;
+}
+
+.alerta-estoque-text p {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray);
+}
+
+/* ============================================
+   FORMULÁRIO DE ESTOQUE
+   ============================================ */
+
+#formEstoque .form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* Cálculo de margem em tempo real */
+.margem-resultado {
+    background: var(--bg-secondary);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    margin-top: var(--spacing-md);
+    display: none;
+}
+
+.margem-resultado.show {
+    display: block;
+}
+
+.margem-resultado-valor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+    font-size: var(--font-size-md);
+}
+
+.margem-resultado-valor strong {
+    color: var(--color-dark);
+}
+
+.margem-resultado-percentual {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+}
+
+/* ============================================
+   RESPONSIVIDADE
+   ============================================ */
+
+@media (max-width: 1024px) {
+    #tabelaEstoque {
+        font-size: var(--font-size-sm);
+    }
+
+    #tabelaEstoque thead th,
+    #tabelaEstoque tbody td {
+        padding: var(--spacing-sm);
+    }
+
+    .col-nome {
+        max-width: 120px;
+    }
+}
+
+@media (max-width: 768px) {
+    .resumo-estoque {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #tabelaEstoque {
+        font-size: 12px;
+    }
+
+    #tabelaEstoque thead th,
+    #tabelaEstoque tbody td {
+        padding: 8px 4px;
+    }
+
+    .col-nome {
+        max-width: 80px;
+    }
+
+    .col-codigo {
+        max-width: 60px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Esconder colunas menos importantes em mobile */
+    #tabelaEstoque .col-margem {
+        display: none;
+    }
+
+    #tabelaEstoque thead th:nth-child(7) {
+        display: none;
+    }
+
+    #tabelaEstoque tbody td:nth-child(7) {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .resumo-estoque {
+        grid-template-columns: 1fr;
+    }
+
+    #formEstoque .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .table-actions {
+        gap: 4px;
+    }
+
+    .btn-edit,
+    .btn-delete {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+
+    /* Versão mobile simplificada da tabela */
+    #tabelaEstoque {
+        display: block;
+        overflow-x: auto;
+    }
+
+    #tabelaEstoque thead {
+        display: none;
+    }
+
+    #tabelaEstoque tbody {
+        display: block;
+    }
+
+    #tabelaEstoque tr {
+        display: block;
+        margin-bottom: var(--spacing-lg);
+        border: 1px solid var(--color-light);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+    }
+
+    #tabelaEstoque td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--spacing-sm);
+        border-bottom: 1px solid var(--color-light);
+    }
+
+    #tabelaEstoque td::before {
+        content: attr(data-label);
+        font-weight: var(--font-weight-bold);
+        flex-basis: 40%;
+        color: var(--color-gray);
+    }
+}
