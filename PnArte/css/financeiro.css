@@ -1,0 +1,349 @@
+/* ============================================
+   FINANCEIRO.CSS
+   
+   Estilos específicos das seções:
+   - Controle de Entradas
+   - Controle de Saídas
+   ============================================ */
+
+/* ============================================
+   SEÇÃO HEADER CUSTOMIZADO
+   ============================================ */
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.section-header h3 {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* ============================================
+   FILTROS E CONTROLES
+   ============================================ */
+
+.relatorio-filtros {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.relatorio-filtros .btn-secondary {
+    padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.relatorio-filtros .btn-secondary.active {
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+/* ============================================
+   TABELAS FINANCEIRAS
+   ============================================ */
+
+.table-container {
+    background: var(--color-white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    margin-bottom: var(--spacing-xl);
+}
+
+/* Customização para tabelas vazias */
+.table tbody.empty {
+    display: none;
+}
+
+.table-empty-message {
+    display: none;
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-gray);
+    font-size: var(--font-size-md);
+}
+
+.table-empty-message.show {
+    display: block;
+}
+
+/* ============================================
+   FORMAS DE PAGAMENTO (BADGES)
+   ============================================ */
+
+.badge-pagamento {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 20px;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-transform: capitalize;
+}
+
+.badge-dinheiro {
+    background: rgba(46, 204, 113, 0.2);
+    color: var(--color-secondary);
+}
+
+.badge-credito {
+    background: rgba(52, 152, 219, 0.2);
+    color: var(--color-primary);
+}
+
+.badge-debito {
+    background: rgba(26, 188, 156, 0.2);
+    color: var(--color-info);
+}
+
+.badge-transferencia {
+    background: rgba(241, 196, 15, 0.2);
+    color: #f39c12;
+}
+
+.badge-cheque {
+    background: rgba(149, 165, 166, 0.2);
+    color: var(--color-gray);
+}
+
+/* ============================================
+   CATEGORIAS (BADGES)
+   ============================================ */
+
+.badge-categoria {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 20px;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-transform: capitalize;
+}
+
+.badge-estoque {
+    background: rgba(155, 89, 182, 0.2);
+    color: #9b59b6;
+}
+
+.badge-frete {
+    background: rgba(52, 152, 219, 0.2);
+    color: var(--color-primary);
+}
+
+.badge-combustível {
+    background: rgba(241, 196, 15, 0.2);
+    color: #f39c12;
+}
+
+.badge-salários {
+    background: rgba(46, 204, 113, 0.2);
+    color: var(--color-secondary);
+}
+
+.badge-energia {
+    background: rgba(243, 156, 18, 0.2);
+    color: #f39c12;
+}
+
+.badge-água {
+    background: rgba(26, 188, 156, 0.2);
+    color: var(--color-info);
+}
+
+.badge-impostos {
+    background: rgba(231, 76, 60, 0.2);
+    color: var(--color-danger);
+}
+
+.badge-outros {
+    background: rgba(149, 165, 166, 0.2);
+    color: var(--color-gray);
+}
+
+/* ============================================
+   FORMATAÇÃO DE VALORES
+   ============================================ */
+
+.valor-positivo {
+    color: var(--color-secondary);
+    font-weight: var(--font-weight-bold);
+}
+
+.valor-negativo {
+    color: var(--color-danger);
+    font-weight: var(--font-weight-bold);
+}
+
+.valor-neutro {
+    color: var(--color-dark);
+    font-weight: var(--font-weight-bold);
+}
+
+/* ============================================
+   AÇÕES NA TABELA
+   ============================================ */
+
+.table-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.btn-edit,
+.btn-delete {
+    padding: 6px 12px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-edit {
+    background: rgba(52, 152, 219, 0.1);
+    color: var(--color-primary);
+}
+
+.btn-edit:hover {
+    background: rgba(52, 152, 219, 0.2);
+}
+
+.btn-delete {
+    background: rgba(231, 76, 60, 0.1);
+    color: var(--color-danger);
+}
+
+.btn-delete:hover {
+    background: rgba(231, 76, 60, 0.2);
+}
+
+/* ============================================
+   DATAS FORMATADAS
+   ============================================ */
+
+.data-formatada {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-dark);
+}
+
+/* ============================================
+   RESUMO DE PERÍODO
+   ============================================ */
+
+.resumo-periodo {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #2980b9 100%);
+    color: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    margin-bottom: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
+}
+
+.resumo-periodo h4 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-lg);
+    color: var(--color-white);
+}
+
+.resumo-periodo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.resumo-periodo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+}
+
+.resumo-periodo-label {
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+}
+
+.resumo-periodo-valor {
+    font-size: 20px;
+    font-weight: var(--font-weight-bold);
+}
+
+/* ============================================
+   RESPONSIVIDADE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .section-header h3 {
+        width: 100%;
+    }
+
+    .table {
+        font-size: var(--font-size-sm);
+    }
+
+    .table thead th,
+    .table tbody td {
+        padding: var(--spacing-sm);
+    }
+
+    .table-actions {
+        flex-direction: column;
+    }
+
+    .btn-edit,
+    .btn-delete {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .resumo-periodo-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .table-actions {
+        flex-direction: row;
+        gap: 4px;
+    }
+
+    .btn-edit,
+    .btn-delete {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+
+    .btn-edit i,
+    .btn-delete i {
+        font-size: 12px;
+    }
+
+    .relatorio-filtros {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .relatorio-filtros .btn-secondary {
+        flex: 1;
+        padding: var(--spacing-sm);
+        font-size: 11px;
+    }
+}

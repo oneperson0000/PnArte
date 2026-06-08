@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PnArte - Sistema Financeiro</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='50' font-size='90' fill='%233498db'>₽</text></svg>">
+
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS Global -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/financeiro.css">
+    <link rel="stylesheet" href="css/estoque.css">
+</head>
+<body>
+    <!-- TELA DE LOGIN -->
+    <div id="loginContainer">
+        <div class="login-card">
+           
+            <div class="logo-icon">
+                <i class="fas fa-gem"></i>
+            </div>
+            <h1>PnArte</h1>
+            <p>Sistema Financeiro</p>
+            
+            <div id="loginError" class="login-error hidden"></div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUsuario">Usuário</label>
+                    <input 
+                        type="text" 
+                        id="loginUsuario" 
+                        placeholder="Digite seu usuário"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="loginSenha">Senha</label>
+                    <input 
+                        type="password" 
+                        id="loginSenha" 
+                        placeholder="Digite sua senha"
+                        required
+                    >
+                </div>
+
+                <button type="submit" id="loginBtn" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </button>
+            </form>
+
+            <div class="login-info">
+                <h4>📋 Credenciais de Teste:</h4>
+                <p><strong>Usuário:</strong> usuario | <strong>Senha:</strong> 123456</p>
+                <p><strong>Admin:</strong> admin | <strong>Senha:</strong> admin123</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="container" class="container">
+        <!-- MENU LATERAL -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-gem"></i> PnArte</h1>
+                <p>Sistema Financeiro</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" data-section="dashboard">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-btn" data-section="entradas">
+                    <i class="fas fa-arrow-down"></i>
+                    <span>Entradas</span>
+                </button>
+                <button class="nav-btn" data-section="saidas">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>Saídas</span>
+                </button>
+                <button class="nav-btn" data-section="estoque">
+                    <i class="fas fa-boxes"></i>
+                    <span>Estoque</span>
+                </button>
+                <button class="nav-btn" data-section="relatorios">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Relatórios</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button id="exportBtn" class="btn-export">
+                    <i class="fas fa-download"></i> Exportar Dados
+                </button>
+                <button id="limparBtn" class="btn-danger">
+                    <i class="fas fa-trash"></i> Limpar Tudo
+                </button>
+            </div>
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="main-content">
+            <!-- HEADER -->
+            <header class="header">
+                <div class="header-info">
+                    <h2 id="pageTitle">Dashboard</h2>
+                    <p id="pageSubtitle">Visão geral financeira</p>
+                </div>
+                <div class="header-controls">
+                    <span id="userInfo" class="user-info">
+                        <i class="fas fa-user-circle"></i>
+                        Usuário
+                    </span>
+                    <button id="logoutBtn" class="logout-btn" title="Sair da conta">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- SEÇÃO: DASHBOARD -->
+            <section id="dashboard" class="section active">
+                <!-- Cards Informativos -->
+                <div class="dashboard-cards">
+                    <div class="card card-entrada">
+                        <div class="card-icon">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Total de Entradas</h3>
+                            <p class="card-value" id="totalEntradas">R$ 0,00</p>
+                            <span class="card-meta" id="qtdEntradas">0 movimentações</span>
+                        </div>
+                    </div>
+
+                    <div class="card card-saida">
+                        <div class="card-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Total de Saídas</h3>
+                            <p class="card-value" id="totalSaidas">R$ 0,00</p>
+                            <span class="card-meta" id="qtdSaidas">0 movimentações</span>
+                        </div>
+                    </div>
+
+                    <div class="card card-lucro">
+                        <div class="card-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Lucro Atual</h3>
+                            <p class="card-value" id="lucroAtual">R$ 0,00</p>
+                            <span class="card-meta" id="margemLucro">0%</span>
+                        </div>
+                    </div>
+
+                    <div class="card card-movimentacoes">
+                        <div class="card-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Total Movimentações</h3>
+                            <p class="card-value" id="totalMovimentacoes">0</p>
+                            <span class="card-meta" id="movimentacoesMeta">Transações</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráficos -->
+                <div class="dashboard-charts">
+                    <div class="chart-container">
+                        <h3>Entradas vs Saídas</h3>
+                        <canvas id="chartComparacao"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3>Evolução do Lucro</h3>
+                        <canvas id="chartLucro"></canvas>
+                    </div>
+                </div>
+
+                <div class="dashboard-charts">
+                    <div class="chart-container">
+                        <h3>Gastos por Categoria</h3>
+                        <canvas id="chartGastos"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3>Resumo Financeiro</h3>
+                        <div id="resumoFinanceiro" class="resumo-container">
+                            <!-- Preenchido por JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO: ENTRADAS -->
+            <section id="entradas" class="section">
+                <div class="section-header">
+                    <h3>Controle de Entradas</h3>
+                    <button id="btnNovaEntrada" class="btn-primary">
+                        <i class="fas fa-plus"></i> Nova Entrada
+                    </button>
+                </div>
+
+                <!-- Formulário de Entrada -->
+                <div id="formEntradaContainer" class="form-container hidden">
+                    <form id="formEntrada" class="form">
+                        <h4>Adicionar/Editar Entrada</h4>
+                        <input type="hidden" id="entradaId">
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="entradaData">Data</label>
+                                <input type="date" id="entradaData" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="entradaDescricao">Descrição</label>
+                                <input type="text" id="entradaDescricao" placeholder="Ex: Venda de porcelanatos" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="entradaCliente">Cliente</label>
+                                <input type="text" id="entradaCliente" placeholder="Ex: Cliente XYZ" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="entradaValor">Valor (R$)</label>
+                                <input type="number" id="entradaValor" placeholder="0,00" step="0.01" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="entradaFormaPagamento">Forma de Pagamento</label>
+                                <select id="entradaFormaPagamento" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="dinheiro">Dinheiro</option>
+                                    <option value="credito">Cartão Crédito</option>
+                                    <option value="debito">Cartão Débito</option>
+                                    <option value="transferencia">Transferência</option>
+                                    <option value="cheque">Cheque</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i> Salvar
+                            </button>
+                            <button type="button" id="cancelarEntrada" class="btn-secondary">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tabela de Entradas -->
+                <div class="table-container">
+                    <table id="tabelaEntradas" class="table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Descrição</th>
+                                <th>Cliente</th>
+                                <th>Valor</th>
+                                <th>Pagamento</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Preenchido por JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SEÇÃO: SAÍDAS -->
+            <section id="saidas" class="section">
+                <div class="section-header">
+                    <h3>Controle de Saídas</h3>
+                    <button id="btnNovaSaida" class="btn-primary">
+                        <i class="fas fa-plus"></i> Nova Saída
+                    </button>
+                </div>
+
+                <!-- Formulário de Saída -->
+                <div id="formSaidaContainer" class="form-container hidden">
+                    <form id="formSaida" class="form">
+                        <h4>Adicionar/Editar Saída</h4>
+                        <input type="hidden" id="saidaId">
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="saidaData">Data</label>
+                                <input type="date" id="saidaData" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="saidaCategoria">Categoria</label>
+                                <select id="saidaCategoria" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="Estoque">Estoque</option>
+                                    <option value="Frete">Frete</option>
+                                    <option value="Combustível">Combustível</option>
+                                    <option value="Salários">Salários</option>
+                                    <option value="Energia">Energia</option>
+                                    <option value="Água">Água</option>
+                                    <option value="Impostos">Impostos</option>
+                                    <option value="Outros">Outros</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="saidaDescricao">Descrição</label>
+                                <input type="text" id="saidaDescricao" placeholder="Ex: Compra de material" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="saidaValor">Valor (R$)</label>
+                                <input type="number" id="saidaValor" placeholder="0,00" step="0.01" required>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i> Salvar
+                            </button>
+                            <button type="button" id="cancelarSaida" class="btn-secondary">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tabela de Saídas -->
+                <div class="table-container">
+                    <table id="tabelaSaidas" class="table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Categoria</th>
+                                <th>Descrição</th>
+                                <th>Valor</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Preenchido por JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SEÇÃO: ESTOQUE -->
+            <section id="estoque" class="section">
+                <div class="section-header">
+                    <h3>Controle de Estoque</h3>
+                    <button id="btnNovoProduto" class="btn-primary">
+                        <i class="fas fa-plus"></i> Novo Produto
+                    </button>
+                </div>
+
+                <!-- Formulário de Estoque -->
+                <div id="formEstoqueContainer" class="form-container hidden">
+                    <form id="formEstoque" class="form">
+                        <h4>Adicionar/Editar Produto</h4>
+                        <input type="hidden" id="estoqueId">
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="estoqueCodigo">Código</label>
+                                <input type="text" id="estoqueCodigo" placeholder="Ex: POR001" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="estoqueNome">Nome do Porcelanato</label>
+                                <input type="text" id="estoqueNome" placeholder="Ex: Mármore Branco" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="estoqueQuantidade">Quantidade</label>
+                                <input type="number" id="estoqueQuantidade" placeholder="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="estoqueValorCompra">Valor de Compra (R$)</label>
+                                <input type="number" id="estoqueValorCompra" placeholder="0,00" step="0.01" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="estoqueValorVenda">Valor de Venda (R$)</label>
+                                <input type="number" id="estoqueValorVenda" placeholder="0,00" step="0.01" required>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i> Salvar
+                            </button>
+                            <button type="button" id="cancelarEstoque" class="btn-secondary">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tabela de Estoque -->
+                <div class="table-container">
+                    <table id="tabelaEstoque" class="table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nome</th>
+                                <th>Quantidade</th>
+                                <th>Valor Compra</th>
+                                <th>Valor Venda</th>
+                                <th>Total Estoque</th>
+                                <th>Margem</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Preenchido por JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SEÇÃO: RELATÓRIOS -->
+            <section id="relatorios" class="section">
+                <div class="section-header">
+                    <h3>Relatórios Financeiros</h3>
+                    <div class="relatorio-filtros">
+                        <button class="btn-secondary active" data-periodo="diario">Diário</button>
+                        <button class="btn-secondary" data-periodo="semanal">Semanal</button>
+                        <button class="btn-secondary" data-periodo="mensal">Mensal</button>
+                        <button class="btn-secondary" data-periodo="anual">Anual</button>
+                    </div>
+                </div>
+
+                <!-- Relatório -->
+                <div class="relatorio-container">
+                    <div id="relatorioConteudo" class="relatorio-content">
+                        <!-- Preenchido por JavaScript -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="modalConfirm" class="modal hidden">
+        <div class="modal-content">
+            <h4>Confirmar Ação</h4>
+            <p id="modalMessage">Tem certeza?</p>
+            <div class="modal-actions">
+                <button id="confirmBtn" class="btn-danger">Confirmar</button>
+                <button id="cancelBtn" class="btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificação Toast -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
+    <!-- jsPDF para gerar PDFs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- autoTable para tabelas em PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
+    <!-- JavaScript -->
+    <script src="js/storage.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/financeiro.js"></script>
+    <script src="js/estoque.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
